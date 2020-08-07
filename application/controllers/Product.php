@@ -20,7 +20,6 @@ class Product extends CI_Controller
 
         $this->load->view('template/header_view');
         $this->load->view('product/index_view', $data);
-
         $this->load->view('template/footer_view');
         $this->load->view('lib/lib_js');
     }
@@ -32,6 +31,7 @@ class Product extends CI_Controller
 
         $this->load->view('template/header_view');
         $this->load->view('product/create_view', $data);
+        $this->load->view('product/edit_view', $data);
         $this->load->view('lib/lib_js');
     }
 
@@ -42,10 +42,8 @@ class Product extends CI_Controller
         $row = $this->product_ml->get($id);
 
         $data['row'] = $row;
-        $data['listadoProductos'] = $this->product_ml->listadoProduct($id);
-
         $this->load->view('template/header_view');
-        $this->load->view('category/show_view', $data);
+        $this->load->view('product/show_view', $data);
         $this->load->view('lib/lib_js');
     }
 
@@ -57,30 +55,26 @@ class Product extends CI_Controller
         $precio_unitario    = $this->input->post('precio_unitario');
         $cantidad           = $this->input->post('cantidad');
 
-        $search = $this->product_ml->searchProductGet($fk_category, $nombre);
+        $data['listadoCategorias'] = $this->category_ml->listado();
 
-        if ($search == TRUE) {
 
-            $this->session->set_flashdata('info', 'Esta producto ya existe');
-            redirect('producto/create', 'refresh');
+
+        $data = array(
+            'fk_categoria'      => $fk_category,
+            'nombre'            => $nombre,
+            'precio_unitario'   => $precio_unitario,
+            'cantidad'          => $cantidad
+        );
+
+        $add = $this->product_ml->add($data);
+
+        if ($add == TRUE) {
+            redirect('product', 'refresh');
         } else {
-
-            $data = array(
-                'fk_categoria'      => $fk_category,
-                'nombre'            => $nombre,
-                'precio_unitario'   => $precio_unitario,
-                'cantidad'          => $cantidad
-            );
-
-            $add = $this->product_ml->add($data);
-
-            if ($add == TRUE) {
-                redirect('product', 'refresh');
-            } else {
-                redirect('product', 'refresh');
-            }
+            redirect('product', 'refresh');
         }
     }
+
 
     #METODO PARA EDITAR PRODUCTO
     function edit()
@@ -89,7 +83,8 @@ class Product extends CI_Controller
 
         $row = $this->product_ml->get($id);
 
-        $data['listadoProduct']  = $this->product_ml->listado();
+
+        $data['listado']  = $this->category_ml->listado();
         $data['row']                = $row;
 
         $this->load->view('template/header_view');
@@ -101,14 +96,15 @@ class Product extends CI_Controller
     function update()
     {
         $id                 = $this->input->post('id');
-        $fk_categoria       = $this->input->post('fk_categoria');
+        $fk_category       = $this->input->post('fk_categoria');
         $nombre             = $this->input->post('nombre');
         $precio_unitario    = $this->input->post('precio_unitario');
         $cantidad           = $this->input->post('cantidad');
 
+
         $data = array(
             'id'                => $id,
-            'fk_categoria'      => $fk_categoria,
+            'fk_categoria'      => $fk_category,
             'nombre'            => $nombre,
             'precio_unitario'   => $precio_unitario,
             'cantidad'          => $cantidad
@@ -118,10 +114,10 @@ class Product extends CI_Controller
 
         if ($update == TRUE) {
             $this->session->set_flashdata('info', 'Datos modificados con exito.');
-            redirect('product', 'refresh');
+            redirect('product/edit?id=' . $id, 'refresh');
         } else {
             $this->session->set_flashdata('info', 'Error hubo un problema al modificar.');
-            redirect('product', 'refresh');
+            redirect('product/edit?id=' . $id, 'refresh');
         }
     }
 

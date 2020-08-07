@@ -1,60 +1,47 @@
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            <?php echo $row->nombre; ?>
+            Crear categoria
         </h1>
         <ol class="breadcrumb">
-            <li><a href="<?php echo base_url(); ?>"><i class="fa fa-home"></i> Inicio</a></li>
-            <li><a href="<?php echo base_url(); ?>category">Categorias</a></li>
-            <li class="active">Listado</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Forms</a></li>
+            <li class="active">General Elements</li>
+        </ol>
     </section>
+
     <!-- Main content -->
-    <section class="invoice">
+    <section class="content">
         <div class="row">
-            <div class="col-xs-12 table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nombre Producto</th>
-                            <th>Precio</th>
-                            <th>Cantidad</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $totalpro = 0;
-                        if (is_array($listadoProductos) || is_object($listadoProductos)) {
-                            foreach ($listadoProductos as $pro) {
-                                $multi = $pro->precio_unitario * $pro->cantidad;
-                                #$totalpro = $totalpro + $multi;
-                                $totalpro += $multi;
-                                echo "<tr>";
-                                echo "<td>" . $pro->nombre . "</td>";
-                                echo "<td>" . $pro->precio_unitario . "</td>";
-                                echo "<td>" . $pro->cantidad . "</td>";
-                                echo "<td>" . $multi . "</td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<td><center>No existen productos para esta categoria</center></td>";
-                        }
-                        echo $totalpro;
-                        ?>
-                    </tbody>
-                </table>
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <form action="<?php echo base_url(); ?>category/show" method="POST" class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Nombre</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="categoria" placeholder="Ingrese nombre categoria">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="button" class="btn btn-default">Atras</button>
+                            <button type="submit" class="btn btn-success pull-right">Registrar</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+                <!--/.col (right) -->
             </div>
-            <!-- /.col -->
         </div>
         <!-- /.row -->
-
-
-        <!-- /.row -->
-
-        <!-- this row will not appear when printing -->
-
     </section>
-
-
+    <!-- /.content -->
 </div>
+<!-- /.content-wrapper -->

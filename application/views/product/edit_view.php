@@ -22,15 +22,18 @@
                     <!-- /.box-header -->
                     <form action="<?php echo base_url(); ?>product/update" method="POST" class="form-horizontal">
                         <div class="box-body">
-
+                            <input type="hidden" name="id" value="<?php echo $row->id; ?>">
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Categorias</label>
                                 <div class="col-sm-10">
                                     <select name="fk_categoria" class="form-control">
-                                        <option value="">Seleccione una opcion</option>
                                         <?php
-                                        foreach ($listadoCategorias as $row) {
-                                            echo "<option value=" . $row->id . ">" . $row->nombre . "</option>";
+                                        foreach ($listado as $row1) {
+                                        ?>
+                                            <option <?php if ($row->fk_categoria == $row1->id) {
+                                                        echo 'selected';
+                                                    } ?> value="<?php echo $row1->id; ?>"><?php echo $row1->nombre; ?></option>
+                                        <?php
                                         }
                                         ?>
                                     </select>
@@ -47,21 +50,21 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Precio Unitario</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="precio_unitario" value=" <?php echo $row->precio_unitario ?>" placeholder="Ingrese Precio Unitario">
+                                    <input type="number" class="form-control" name="precio_unitario" value="<?php echo $row->precio_unitario; ?>" placeholder="Ingrese Precio Unitario">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Cantidad</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="cantidad" value="<?php echo $row->cantidad ?>" placeholder="Ingrese nombre Cantidad">
+                                    <input type="number" class="form-control" name="cantidad" value="<?php echo $row->cantidad; ?>" placeholder="Ingrese nombre Cantidad">
                                 </div>
                             </div>
 
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="button" class="btn btn-default">Atras</button>
+                            <a href="javascript:history.back(1)" class="btn btn-default"> Atrás</a>
                             <button type="submit" class="btn btn-info pull-right">Modificar</button>
                         </div>
                         <!-- /.box-footer -->

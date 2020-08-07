@@ -2,14 +2,14 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Editar Producto
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">General Elements</li>
-      </ol>
+        <h1>
+            Editar Producto
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Forms</a></li>
+            <li class="active">General Elements</li>
+        </ol>
     </section>
 
     <!-- Main content -->
@@ -26,7 +26,7 @@
                             <input type="hidden" name="id" value="<?php echo $row->id; ?>">
 
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Nombre de Producto</label>
+                                <label for="inputEmail3" class="col-sm-2 control-label">Nombre de Categoria</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="nombre" value="<?php echo $row->nombre; ?>" placeholder="Ingrese nombre categoria">
                                 </div>
@@ -46,5 +46,5 @@
         <!-- /.row -->
     </section>
     <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+</div>
+<!-- /.content-wrapper -->

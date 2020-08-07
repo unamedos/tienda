@@ -39,7 +39,7 @@ class Client extends CI_Controller
         $row = $this->client_ml->get($id);
 
         $data['row'] = $row;
-        $data['listadoClientes'] = $this->client_ml->listadoClient($id);
+
         $this->load->view('template/header_view');
         $this->load->view('client/show_view', $data);
         $this->load->view('lib/lib_js');
