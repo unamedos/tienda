@@ -60,6 +60,19 @@
                                     <input type="number" class="form-control" name="cantidad" value="<?php echo $row->cantidad; ?>" placeholder="Ingrese nombre Cantidad">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="stock" value="<?php echo $row->stock; ?>" placeholder="Ingrese nombre Cantidad">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Precio Venta</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="precio_venta" value="<?php echo $row->precio_venta; ?>" placeholder="Ingrese nombre Cantidad">
+                                </div>
+                            </div>
+
 
                         </div>
                         <!-- /.box-body -->

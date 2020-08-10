@@ -54,9 +54,22 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Cantidad</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="cantidad" placeholder="Ingrese nombre Cantidad">
+                                    <input type="number" class="form-control" name="cantidad" placeholder="Ingrese Cantidad">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="stock" placeholder="Ingrese Stock">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Precio venta</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="precio_venta" placeholder="Ingrese Precio venta">
+                                </div>
+                            </div>
+
 
                         </div>
                         <!-- /.box-body -->

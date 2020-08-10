@@ -54,16 +54,19 @@ class Product extends CI_Controller
         $nombre             = $this->input->post('nombre');
         $precio_unitario    = $this->input->post('precio_unitario');
         $cantidad           = $this->input->post('cantidad');
+        $stock              = $this->input->post('stock');
+        $precio_venta       = $this->input->post('precio_venta');
 
-        $data['listadoCategorias'] = $this->category_ml->listado();
-
-
+        #ESTO NO VA, YA QUE TU FUNCION LO QUE HACE ES ALMACENAR EN LA BASE DE DATOS Y NO NECESITAS LISTAR
+        #$data['listadoCategorias'] = $this->category_ml->listado();
 
         $data = array(
             'fk_categoria'      => $fk_category,
             'nombre'            => $nombre,
             'precio_unitario'   => $precio_unitario,
-            'cantidad'          => $cantidad
+            'cantidad'          => $cantidad,
+            'stock'             => $stock,
+            'precio_venta'      => $precio_venta
         );
 
         $add = $this->product_ml->add($data);
@@ -74,7 +77,6 @@ class Product extends CI_Controller
             redirect('product', 'refresh');
         }
     }
-
 
     #METODO PARA EDITAR PRODUCTO
     function edit()
@@ -100,6 +102,8 @@ class Product extends CI_Controller
         $nombre             = $this->input->post('nombre');
         $precio_unitario    = $this->input->post('precio_unitario');
         $cantidad           = $this->input->post('cantidad');
+        $stock              = $this->input->post('stock');
+        $precio_venta       = $this->input->post('precio_venta');
 
 
         $data = array(
@@ -107,7 +111,9 @@ class Product extends CI_Controller
             'fk_categoria'      => $fk_category,
             'nombre'            => $nombre,
             'precio_unitario'   => $precio_unitario,
-            'cantidad'          => $cantidad
+            'cantidad'          => $cantidad,
+            'stock'             => $stock,
+            'precio_venta'      => $precio_venta
         );
 
         $update = $this->product_ml->update($data);

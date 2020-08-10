@@ -24,6 +24,8 @@
                   <th>Nombre</th>
                   <th>Precio unitario</th>
                   <th>Cantidad</th>
+                  <th>Stock</th>
+                  <th>Precio Venta</th>
                   <th>Total</th>
                   <th>Opciones</th>
                 </tr>
@@ -41,6 +43,8 @@
                     echo "<td>" . $row->nombre . "</td>";
                     echo "<td>" . $row->precio_unitario . "</td>";
                     echo "<td>" . $row->cantidad . "</td>";
+                    echo "<td>" . $row->stock . "</td>";
+                    echo "<td>" . $row->precio_venta . "</td>";
                     echo "<td>" . $row->total . "</td>";
                     echo "
                                     <td>
