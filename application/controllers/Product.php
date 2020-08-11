@@ -56,27 +56,40 @@ class Product extends CI_Controller
         $cantidad           = $this->input->post('cantidad');
         $stock              = $this->input->post('stock');
         $precio_venta       = $this->input->post('precio_venta');
+        #para validar
+        $this->form_validation->set_rules("fk_categoria", "Categoria", "required");
 
-        #ESTO NO VA, YA QUE TU FUNCION LO QUE HACE ES ALMACENAR EN LA BASE DE DATOS Y NO NECESITAS LISTAR
-        #$data['listadoCategorias'] = $this->category_ml->listado();
+        $this->form_validation->set_rules("nombre", "Nombre", "required");
+        $this->form_validation->set_rules("precio_unitario", "Precio Unitario", "required");
+        $this->form_validation->set_rules("cantidad", "Cantidad", "required");
+        $this->form_validation->set_rules("stock", "Stock", "required");
+        $this->form_validation->set_rules("precio_venta", "Precio Venta", "required");
 
-        $data = array(
-            'fk_categoria'      => $fk_category,
-            'nombre'            => $nombre,
-            'precio_unitario'   => $precio_unitario,
-            'cantidad'          => $cantidad,
-            'stock'             => $stock,
-            'precio_venta'      => $precio_venta
-        );
 
-        $add = $this->product_ml->add($data);
+        if ($this->form_validation->run()) {
 
-        if ($add == TRUE) {
-            redirect('product', 'refresh');
+            $data = array(
+                'fk_categoria'      => $fk_category,
+                'nombre'            => $nombre,
+                'precio_unitario'   => $precio_unitario,
+                'cantidad'          => $cantidad,
+                'stock'             => $stock,
+                'precio_venta'      => $precio_venta
+            );
+
+            $add = $this->product_ml->add($data);
+
+            if ($add == TRUE) {
+                redirect('product', 'refresh');
+            } else {
+                redirect('product', 'refresh');
+            }
         } else {
-            redirect('product', 'refresh');
+
+            $this->create();
         }
     }
+
 
     #METODO PARA EDITAR PRODUCTO
     function edit()
