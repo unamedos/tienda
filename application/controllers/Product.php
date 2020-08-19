@@ -56,10 +56,12 @@ class Product extends CI_Controller
         $cantidad           = $this->input->post('cantidad');
         $stock              = $this->input->post('stock');
         $precio_venta       = $this->input->post('precio_venta');
+
+
+
         #para validar
         $this->form_validation->set_rules("fk_categoria", "Categoria", "required");
-
-        $this->form_validation->set_rules("nombre", "Nombre", "required");
+        $this->form_validation->set_rules("nombre", "Nombre", "required|is_unique[productos.nombre]");
         $this->form_validation->set_rules("precio_unitario", "Precio Unitario", "required");
         $this->form_validation->set_rules("cantidad", "Cantidad", "required");
         $this->form_validation->set_rules("stock", "Stock", "required");
@@ -100,7 +102,7 @@ class Product extends CI_Controller
 
 
         $data['listado']  = $this->category_ml->listado();
-        $data['row']                = $row;
+        $data['row']      = $row;
 
         $this->load->view('template/header_view');
         $this->load->view('product/edit_view', $data);
@@ -111,32 +113,60 @@ class Product extends CI_Controller
     function update()
     {
         $id                 = $this->input->post('id');
-        $fk_category       = $this->input->post('fk_categoria');
+        $fk_category        = $this->input->post('fk_categoria');
         $nombre             = $this->input->post('nombre');
         $precio_unitario    = $this->input->post('precio_unitario');
         $cantidad           = $this->input->post('cantidad');
         $stock              = $this->input->post('stock');
         $precio_venta       = $this->input->post('precio_venta');
 
+        $productoActual = $this->product_ml->get($id);
 
-        $data = array(
-            'id'                => $id,
-            'fk_categoria'      => $fk_category,
-            'nombre'            => $nombre,
-            'precio_unitario'   => $precio_unitario,
-            'cantidad'          => $cantidad,
-            'stock'             => $stock,
-            'precio_venta'      => $precio_venta
-        );
-
-        $update = $this->product_ml->update($data);
-
-        if ($update == TRUE) {
-            $this->session->set_flashdata('info', 'Datos modificados con exito.');
-            redirect('product/edit?id=' . $id, 'refresh');
+        if ($nombre == $productoActual->nombre) {
+            $is_unique = '';
         } else {
-            $this->session->set_flashdata('info', 'Error hubo un problema al modificar.');
-            redirect('product/edit?id=' . $id, 'refresh');
+            $is_unique = '|is_unique[productos.nombre]';
+        }
+
+        #para validar
+        $this->form_validation->set_rules("id", "id", "required");
+        $this->form_validation->set_rules("fk_categoria", "Categoria", "required");
+        $this->form_validation->set_rules("nombre", "Nombre", "required" . $is_unique);
+        $this->form_validation->set_rules("precio_unitario", "Precio Unitario", "required");
+        $this->form_validation->set_rules("cantidad", "Cantidad", "required");
+        $this->form_validation->set_rules("stock", "Stock", "required");
+        $this->form_validation->set_rules("precio_venta", "Precio Venta", "required");
+
+        if ($this->form_validation->run()) {
+
+            $data = array(
+                'id'                => $id,
+                'fk_categoria'      => $fk_category,
+                'nombre'            => $nombre,
+                'precio_unitario'   => $precio_unitario,
+                'cantidad'          => $cantidad,
+                'stock'             => $stock,
+                'precio_venta'      => $precio_venta
+            );
+
+            $update = $this->product_ml->update($data);
+
+            if ($update == TRUE) {
+                $this->session->set_flashdata('info', 'Datos modificados con exito.');
+                redirect('product/edit?id=' . $id, 'refresh');
+            } else {
+                $this->session->set_flashdata('info', 'Error hubo un problema al modificar.');
+                redirect('product/edit?id=' . $id, 'refresh');
+            }
+        } else {
+
+            $row                = $this->product_ml->get($id);
+            $data['row']        = $row;
+            $data['listado']    = $this->category_ml->listado();
+
+            $this->load->view('template/header_view');
+            $this->load->view('product/edit_view', $data);
+            $this->load->view('lib/lib_js');
         }
     }
 

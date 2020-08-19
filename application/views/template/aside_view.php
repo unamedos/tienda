@@ -40,6 +40,20 @@
       <li><a href="<?php echo base_url(); ?>client/create"><i class="fa fa-circle-o"></i> Agregar Clientes</a></li>
     </ul>
   </li>
+  <li class="treeview">
+    <a href="#">
+      <i class="fa fa-pie-chart"></i>
+      <span>Ventas</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+
+      <li><a href="<?php echo base_url(); ?>ventas/show"><i class="fa fa-circle-o"></i> Ventas</a></li>
+
+
+  </li>
 </ul>
 </section>
 <!-- /.sidebar -->
