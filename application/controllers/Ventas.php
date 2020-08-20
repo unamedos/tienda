@@ -31,11 +31,6 @@ class Ventas extends CI_Controller
 
     function show()
     {
-        /* $id = $this->input->get('id');
-
-        $row = $this->product_ml->get($id);
-
-        $data['row'] = $row;*/
         $this->load->view('template/header_view');
         $this->load->view('ventas/show_view');
         $this->load->view('lib/lib_js');

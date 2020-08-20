@@ -25,10 +25,6 @@
                                             <option value="<?php echo $datacomprobante; ?>"><?php echo $tipocomprobante->nombre ?></option>
                                         <?php endforeach; ?>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
                                     <label for="">Cliente:</label>
                                     <div class="input-group">
                                         <input type="hidden" id="idCliente" name="idCliente">
@@ -41,7 +37,20 @@
                                     </div><!-- /input-group -->
                                 </div>
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Nro de factura:</label>
+                                    <div class="input-group">
+                                        <input type="hidden" id="idCliente" name="idCliente">
+                                        <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="infoCliente">
+                                    </div><!-- /input-group -->
+                                    <label for="">Nro de control</label>
+                                    <div class="input-group">
+                                        <input type="hidden" id="idCliente" name="idCliente">
+                                        <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="infoCliente">
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Producto:</label>
@@ -61,6 +70,9 @@
                                                 <th>Producto</th>
                                                 <th>Precio</th>
                                                 <th>Cantidad</th>
+                                                <th>Stock</th>
+                                                <th>Subtotal</th>
+                                                <th>Iva</th>
                                                 <th>Total</th>
                                                 <th></th>
                                             </tr>
