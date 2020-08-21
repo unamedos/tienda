@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-08-2020 a las 01:28:33
+-- Tiempo de generación: 21-08-2020 a las 05:13:16
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -109,7 +109,26 @@ INSERT INTO `productos` (`id`, `fk_categoria`, `nombre`, `precio_unitario`, `can
 (18, 7, 'nalgas', '200', '100', 0, ''),
 (19, 7, 'nalgas', '200', '10', 0, ''),
 (20, 4, 'cola', '10', '10', 0, ''),
-(21, 3, 'cola', '200', '20', 10, '220');
+(21, 3, 'nalgaswqe', '20000', '100', 100, '220'),
+(29, 4, 'naranja', '200', '100', 10, '16000'),
+(30, 4, 'naranja', '100', '10', 10, '15151');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas`
+--
+
+CREATE TABLE `ventas` (
+  `id` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `subtotal` varchar(20) NOT NULL,
+  `iva` varchar(20) NOT NULL,
+  `total` varchar(20) NOT NULL,
+  `cliente_id` int(11) NOT NULL,
+  `num_control` varchar(20) NOT NULL,
+  `serie` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Índices para tablas volcadas
@@ -135,6 +154,13 @@ ALTER TABLE `productos`
   ADD KEY `fk_categoria` (`fk_categoria`);
 
 --
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cliente_id` (`cliente_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -154,7 +180,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -165,6 +197,12 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `rela_produc_categ` FOREIGN KEY (`fk_categoria`) REFERENCES `categorias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
