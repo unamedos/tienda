@@ -15,8 +15,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url(); ?>public/js/demo.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('.sidebar-menu').tree();
         $('#example1').DataTable()
+
     });
 </script>

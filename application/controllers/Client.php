@@ -130,7 +130,7 @@ class Client extends CI_Controller
 
 
 
-    #METODO PARA ELIMINAR producto
+    #METODO PARA ELIMINAR cliente
     function delete()
     {
         $id = $this->input->get('id');

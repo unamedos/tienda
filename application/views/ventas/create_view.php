@@ -17,42 +17,49 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Tipo de Comprobante:</label>
-                                    <select name="comprobantes" id="comprobantes" class="form-control" required>
-                                        <option value="">Seleccione...</option>
-                                        <?php foreach ($tipocomprobantes as $tipocomprobante) : ?>
-                                            <?php $datacomprobante = $tipocomprobante->id . "*" . $tipocomprobante->cantidad . "*" . $tipocomprobante->iva . "*" . $tipocomprobante->serie; ?>
-                                            <option value="<?php echo $datacomprobante; ?>"><?php echo $tipocomprobante->nombre ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <label for="">Cliente:</label>
-                                    <div class="input-group">
-                                        <input type="hidden" id="idCliente" name="idCliente">
-                                        <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="infoCliente">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary btn-flat" type="button" data-toggle="modal" data-target="#modal-clientes">
-                                                <span class="fa fa-search"></span>
-                                            </button>
-                                        </span>
+                                    <div class="col-md-12">
+                                        <label for="">Tipo de Comprobante:</label>
+                                        <select name="comprobantes" id="comprobantes" class="form-control" required>
+                                            <option value="">Seleccione...</option>
+                                            <?php foreach ($tipocomprobantes as $tipocomprobante) : ?>
+                                                <?php $datacomprobante = $tipocomprobante->id . "*" . $tipocomprobante->cantidad . "*" . $tipocomprobante->iva . "*" . $tipocomprobante->serie; ?>
+                                                <option value="<?php echo $datacomprobante; ?>"><?php echo $tipocomprobante->nombre ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <input type="hidden" id="idcomprobante" name="idcomprobante">
+                                        <input type="hidden" id="iva" name="iva">
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <label for="">Nro de serie:</label>
+                                        <input type="text" class="form-control" name="serie" id="serie" readonly>
+                                    </div><!-- /input-group -->
+
+                                    <div class="col-md-5">
+                                        <label for="">Nro de control</label>
+                                        <input type="text" class="form-control" name="numero" id="numero" readonly>
                                     </div><!-- /input-group -->
                                 </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Nro de factura:</label>
-                                    <div class="input-group">
-                                        <input type="hidden" id="idCliente" name="idCliente">
-                                        <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="infoCliente">
-                                    </div><!-- /input-group -->
-                                    <label for="">Nro de control</label>
-                                    <div class="input-group">
-                                        <input type="hidden" id="idCliente" name="idCliente">
-                                        <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="infoCliente">
+                                    <div class="col-md-8">
+                                        <label for="">Cliente:</label>
+                                        <div class="input-group">
+                                            <input type="hidden" id="idCliente" name="idCliente">
+                                            <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="infoCliente">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary btn-flat" type="button" data-toggle="modal" data-target="#modal-clientes">
+                                                    <span class="fa fa-search"></span>
+                                                </button>
+                                            </span>
+                                        </div>
                                     </div><!-- /input-group -->
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
                             <label for="">Producto:</label>
                             <div class="input-group barcode">
                                 <div class="input-group-addon">
@@ -60,7 +67,7 @@
                                 </div>
                                 <input type="text" class="form-control" id="searchProductoVenta" placeholder="Buscar por codigo de barras">
                             </div>
-                            <form action="<?php echo base_url(); ?>movimientos/ordenes/store" method="POST" id="add-orden">
+                            <form action="<?php echo base_url(); ?>ordenes/store" method="POST" id="add-orden">
 
                                 <h4 class="text-center">Productos Agregado a la Venta</h4>
                                 <div class="table-responsive">
@@ -74,17 +81,17 @@
                                                 <th>Subtotal</th>
                                                 <th>Iva</th>
                                                 <th>Total</th>
-                                                <th></th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr class="message">
-                                                <td colspan="5" class="text-center">Aun no se han agregado producto al detalle</td>
+                                                <td colspan="7" class="text-center">Aun no se han agregado producto al detalle</td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th colspan="3" class="text-right">Total</th>
+                                                <th colspan="5" class="text-right">Total</th>
                                                 <td>
                                                     <input type="hidden" name="total" value="0">
                                                     <p class="total">0.00</p>
@@ -101,7 +108,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 ">
                         <h4>Seleccion de Productos</h4>
                         <div class="form-group">
                             <select name="categoria" id="categoria" class="form-control">
@@ -120,10 +127,7 @@
                             </thead>
                             <tbody>
                             </tbody>
-
                         </table>
-
-
                     </div>
                 </div>
             </div>
@@ -167,23 +171,23 @@
                 <h4 class="modal-title">Listado de Clientes</h4>
             </div>
             <div class="modal-body">
-                <table id="example1" class="table table-bordered table-striped table-hover">
+                <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
-                            <th>Documento</th>
+                            <th>Cedula</th>
                             <th>Opcion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($clientes)) : ?>
-                            <?php foreach ($clientes as $cliente) : ?>
+                        <?php if (is_array($listado) || is_object($listado)) : ?>
+                            <?php foreach ($listado as $row) : ?>
                                 <tr>
-                                    <td><?php echo $cliente->id; ?></td>
-                                    <td><?php echo $cliente->nombre; ?></td>
-                                    <td><?php echo $cliente->num_documento; ?></td>
-                                    <?php $datacliente = $cliente->id . "*" . $cliente->nombre . "*" . $cliente->tipocliente . "*" . $cliente->tipodocumento . "*" . $cliente->num_documento . "*" . $cliente->telefono . "*" . $cliente->direccion; ?>
+                                    <td><?php echo $row->id; ?></td>
+                                    <td><?php echo $row->nombre; ?></td>
+                                    <td><?php echo $row->cedula; ?></td>
+                                    <?php $datacliente = $row->id . "*" . $row->nombre . "*" . $row->cedula; ?>
                                     <td>
                                         <button type="button" class="btn btn-success btn-check" value="<?php echo $datacliente; ?>"><span class="fa fa-check"></span></button>
                                     </td>
@@ -202,4 +206,3 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
