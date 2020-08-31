@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-08-2020 a las 05:13:16
+-- Tiempo de generación: 31-08-2020 a las 05:17:22
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -116,6 +116,28 @@ INSERT INTO `productos` (`id`, `fk_categoria`, `nombre`, `precio_unitario`, `can
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipo_comprobante`
+--
+
+CREATE TABLE `tipo_comprobante` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `cantidad` int(20) NOT NULL,
+  `iva` varchar(20) NOT NULL,
+  `serie` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipo_comprobante`
+--
+
+INSERT INTO `tipo_comprobante` (`id`, `nombre`, `cantidad`, `iva`, `serie`) VALUES
+(1, 'Factura', 0, '16', '1'),
+(2, 'Nota de entrega', 0, '0', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `ventas`
 --
 
@@ -125,6 +147,7 @@ CREATE TABLE `ventas` (
   `subtotal` varchar(20) NOT NULL,
   `iva` varchar(20) NOT NULL,
   `total` varchar(20) NOT NULL,
+  `tipo_comprobante_id` int(11) NOT NULL,
   `cliente_id` int(11) NOT NULL,
   `num_control` varchar(20) NOT NULL,
   `serie` varchar(20) NOT NULL
@@ -154,11 +177,18 @@ ALTER TABLE `productos`
   ADD KEY `fk_categoria` (`fk_categoria`);
 
 --
+-- Indices de la tabla `tipo_comprobante`
+--
+ALTER TABLE `tipo_comprobante`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `ventas`
 --
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `cliente_id` (`cliente_id`);
+  ADD KEY `cliente_id` (`cliente_id`),
+  ADD KEY `tipo_comprobante_id` (`tipo_comprobante_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -183,10 +213,16 @@ ALTER TABLE `productos`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
+-- AUTO_INCREMENT de la tabla `tipo_comprobante`
+--
+ALTER TABLE `tipo_comprobante`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -202,7 +238,8 @@ ALTER TABLE `productos`
 -- Filtros para la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`tipo_comprobante_id`) REFERENCES `tipo_comprobante` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
