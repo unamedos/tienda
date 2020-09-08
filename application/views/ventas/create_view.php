@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <label for="">Tipo de Comprobante:</label>
@@ -41,11 +41,11 @@
                                     </div><!-- /input-group -->
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <label for="">Cliente:</label>
                                         <div class="input-group">
                                             <input type="hidden" id="idCliente" name="idCliente">
-                                            <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="infoCliente">
+                                            <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="Cliente">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-primary btn-flat" type="button" data-toggle="modal" data-target="#modal-clientes">
                                                     <span class="fa fa-search"></span>
@@ -54,86 +54,68 @@
                                         </div>
                                     </div><!-- /input-group -->
                                 </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <label for="">Producto:</label>
-                            <div class="input-group barcode">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-barcode"></i>
-                                </div>
-                                <input type="text" class="form-control" id="searchProductoVenta" placeholder="Buscar por codigo de barras">
-                            </div>
-                            <form action="<?php echo base_url(); ?>ordenes/store" method="POST" id="add-orden">
-
-                                <h4 class="text-center">Productos Agregado a la Venta</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-bordered" id="tborden">
-                                        <thead>
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Stock</th>
-                                                <th>Subtotal</th>
-                                                <th>Iva</th>
-                                                <th>Total</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="message">
-                                                <td colspan="7" class="text-center">Aun no se han agregado producto al detalle</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th colspan="5" class="text-right">Total</th>
-                                                <td>
-                                                    <input type="hidden" name="total" value="0">
-                                                    <p class="total">0.00</p>
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
                                 <div class="form-group">
-                                    <button id="btn-success" type="submit" class="btn btn-success btn-flat btn-guardar" disabled="disabled">Guardar</button>
-                                    <a href="<?php echo base_url(); ?>ventas/show" class="btn btn-danger">Volver</a>
+                                    <div class="col-md-8">
+                                        <label for="">Producto:</label>
+                                        <input type="text" class="form-control" id="producto" placeholder="Ingrese Nombre de producto">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="">&nbsp;</label>
+                                        <button id="btn-agregar" type="button" class="btn btn-success btn-flat btn-block"><span class="fa fa-plus"></span> Agregar</button>
+                                    </div>
                                 </div>
-                            </form>
+                                <div></div>
+                                <table id="tbventas" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th>Stock Max.</th>
+                                            <th>Cantidad</th>
+                                            <th>total</th>
+                                            <th>Opcion</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Subtotal:</span>
+                                            <input type="text" class="form-control" placeholder="Username" name="subtotal" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">iva</span>
+                                            <input type="text" class="form-control" placeholder="Username" name="iva2" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Total:</span>
+                                            <input type="text" class="form-control" placeholder="Username" name="total" readonly="readonly">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-success btn-flat">Guardar</button>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4 ">
-                        <h4>Seleccion de Productos</h4>
-                        <div class="form-group">
-                            <select name="categoria" id="categoria" class="form-control">
-                                <option value="">Seleccione Categoria</option>
-                                <?php foreach ($categorias as $categoria) : ?>
-                                    <option value="<?php echo $categoria->id; ?>"><?php echo $categoria->nombre; ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                        <table class="table table-bordered table-hover" id="tbproductos">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Seleccionar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+                    <!-- /.box-body -->
                 </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
+                <!-- /.box -->
     </section>
     <!-- /.content -->
 </div>
@@ -171,31 +153,36 @@
                 <h4 class="modal-title">Listado de Clientes</h4>
             </div>
             <div class="modal-body">
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Cedula</th>
-                            <th>Opcion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (is_array($listado) || is_object($listado)) : ?>
-                            <?php foreach ($listado as $row) : ?>
-                                <tr>
-                                    <td><?php echo $row->id; ?></td>
-                                    <td><?php echo $row->nombre; ?></td>
-                                    <td><?php echo $row->cedula; ?></td>
-                                    <?php $datacliente = $row->id . "*" . $row->nombre . "*" . $row->cedula; ?>
-                                    <td>
-                                        <button type="button" class="btn btn-success btn-check" value="<?php echo $datacliente; ?>"><span class="fa fa-check"></span></button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Cedula</th>
+                                <th>Opcion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (is_array($listado) || is_object($listado)) : ?>
+                                <?php foreach ($listado as $row) : ?>
+                                    <tr>
+                                        <td><?php echo $row->id; ?></td>
+                                        <td><?php echo $row->nombre; ?></td>
+                                        <td><?php echo $row->apellido; ?></td>
+                                        <td><?php echo $row->cedula; ?></td>
+                                        <?php $datacliente = $row->id . "_" . $row->nombre . "_" . $row->apellido . "_" . $row->cedula; ?>
+                                        <td>
+
+                                            <button type="button" class="btn btn-success btn-check" value="<?php echo $datacliente; ?>"><span class="fa fa-check"></span></button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="btn-cmodal" type="button" class="btn btn-danger pull-left btn-cerrar-imp" data-dismiss="modal">Cerrar</button>

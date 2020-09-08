@@ -42,4 +42,11 @@ class Ventas extends CI_Controller
         $this->load->view('ventas/show_view');
         $this->load->view('lib/lib_js');
     }
+
+    public function getproductos()
+    {
+        $valor = $this->input->post("valor");
+        $clientes = $this->venta_ml->getproductos($valor);
+        echo json_encode($clientes);
+    }
 }

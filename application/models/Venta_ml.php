@@ -16,4 +16,13 @@ class Venta_ml extends CI_Model
             return $data;
         }
     }
+    public function getproductos($valor)
+    {
+
+        $this->db->select("id,nombre as label,precio_unitario,cantidad,stock");
+        $this->db->from("productos");
+        $this->db->like("nombre", $valor);
+        $resultados = $this->db->get();
+        return $resultados->result_array();
+    }
 }
