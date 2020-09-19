@@ -69,14 +69,7 @@
 
                                 </div>
                             </div>
-                            <div class="form-group has-warning has-fee">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="stock" value="<?php echo set_value('stock') ?: $row->stock; ?>" placeholder="Ingrese nombre Cantidad">
-                                    <?php echo form_error("stock", "<span class='help-block'>", "</span>"); ?>
 
-                                </div>
-                            </div>
                             <div class="form-group has-warning has-fee">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Precio Venta</label>
                                 <div class="col-sm-10">

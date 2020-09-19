@@ -14,108 +14,102 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <label for="">Tipo de Comprobante:</label>
-                                        <select name="comprobantes" id="comprobantes" class="form-control" required>
-                                            <option value="">Seleccione...</option>
-                                            <?php foreach ($tipocomprobantes as $tipocomprobante) : ?>
-                                                <?php $datacomprobante = $tipocomprobante->id . "*" . $tipocomprobante->cantidad . "*" . $tipocomprobante->iva . "*" . $tipocomprobante->serie; ?>
-                                                <option value="<?php echo $datacomprobante; ?>"><?php echo $tipocomprobante->nombre ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <input type="hidden" id="idcomprobante" name="idcomprobante">
-                                        <input type="hidden" id="iva" name="iva">
-                                    </div>
-
-                                    <div class="col-md-5">
-                                        <label for="">Nro de serie:</label>
-                                        <input type="text" class="form-control" name="serie" id="serie" readonly>
-                                    </div><!-- /input-group -->
-
-                                    <div class="col-md-5">
-                                        <label for="">Nro de control</label>
-                                        <input type="text" class="form-control" name="numero" id="numero" readonly>
-                                    </div><!-- /input-group -->
+                        <form action="<?php echo base_url(); ?>ventas/store" method="POST" class="form-horizontal" id="form_venta">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="">Tipo de Comprobante:</label>
+                                    <select name="comprobantes" id="comprobantes" class="form-control" required autofocus>
+                                        <option value="">Seleccione...</option>
+                                        <?php foreach ($tipocomprobantes as $tipocomprobante) : ?>
+                                            <?php $datacomprobante = $tipocomprobante->id . "*" . $tipocomprobante->cantidad . "*" . $tipocomprobante->iva . "*" . $tipocomprobante->serie; ?>
+                                            <option value="<?php echo $datacomprobante; ?>"><?php echo $tipocomprobante->nombre ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <input type="hidden" id="idcomprobante" name="idcomprobante">
+                                    <input type="hidden" id="iva" name="iva">
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <label for="">Cliente:</label>
-                                        <div class="input-group">
-                                            <input type="hidden" id="idCliente" name="idCliente">
-                                            <input type="text" class="form-control" disabled="disabled" name="infoCliente" id="Cliente">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-primary btn-flat" type="button" data-toggle="modal" data-target="#modal-clientes">
-                                                    <span class="fa fa-search"></span>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div><!-- /input-group -->
+                                <div class="col-md-5">
+                                    <label for="">Nro de serie:</label>
+                                    <input type="text" class="form-control" name="serie" id="serie" readonly>
+                                </div><!-- /input-group -->
+                                <div class="col-md-5">
+                                    <label for="">Nro de control</label>
+                                    <input type="text" class="form-control" name="numero" id="numero" readonly>
+                                </div><!-- /input-group -->
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="">Cliente:</label>
+                                    <div class="input-group">
+                                        <input type="hidden" id="idCliente" name="idCliente">
+                                        <input type="text" class="form-control" onkeydown="return false;" style="caret-color: transparent !important;" name="infoCliente" id="Cliente" required>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary btn-flat" type="button" data-toggle="modal" data-target="#modal-clientes">
+                                                <span class="fa fa-search"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div><!-- /input-group -->
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-8">
+                                    <label for="">Producto:</label>
+                                    <input type="text" class="form-control" id="producto" name="producto" placeholder="Ingrese Nombre de producto" required autofocus>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-md-8">
-                                        <label for="">Producto:</label>
-                                        <input type="text" class="form-control" id="producto" placeholder="Ingrese Nombre de producto">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="">&nbsp;</label>
-                                        <button id="btn-agregar" type="button" class="btn btn-success btn-flat btn-block"><span class="fa fa-plus"></span> Agregar</button>
-                                    </div>
-                                </div>
-                                <div></div>
-                                <table id="tbventas" class="table table-bordered table-striped table-hover">
-                                    <thead>
-                                        <tr>
-
-                                            <th>Nombre</th>
-                                            <th>Precio</th>
-                                            <th>Stock Max.</th>
-                                            <th>Cantidad</th>
-                                            <th>total</th>
-                                            <th>Opcion</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-
-                                <div class="form-group">
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Subtotal:</span>
-                                            <input type="text" class="form-control" placeholder="Username" name="subtotal" readonly="readonly">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">iva</span>
-                                            <input type="text" class="form-control" placeholder="Username" name="iva2" readonly="readonly">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">Total:</span>
-                                            <input type="text" class="form-control" placeholder="Username" name="total" readonly="readonly">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-success btn-flat">Guardar</button>
-                                    </div>
-
+                                <div class="col-md-4">
+                                    <label for="">&nbsp;</label>
+                                    <button id="btn-agregar" type="button" class="btn btn-success btn-flat btn-block"><span class="fa fa-plus"></span> Agregar</button>
                                 </div>
                             </div>
-                        </div>
+                            <div></div>
+                            <table id="tbventas" class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Stock Max.</th>
+                                        <th>Cantidad</th>
+                                        <th>total</th>
+                                        <th>Opcion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Subtotal:</span>
+                                        <input type="text" class="form-control" placeholder="Username" name="subtotal" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">iva</span>
+                                        <input type="text" class="form-control" placeholder="Username" name="iva2" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Total:</span>
+                                        <input type="text" class="form-control" placeholder="Username" name="total" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-success btn-flat" class="guardar">Guardar</button>
+                                </div>
+                            </div>
+
+
+                        </form>
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 </div>

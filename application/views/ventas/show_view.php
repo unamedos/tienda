@@ -39,11 +39,12 @@
                                             <td><?php echo $venta->id; ?></td>
                                             <td><?php echo $venta->nombre; ?></td>
                                             <td><?php echo $venta->tipocomprobante; ?></td>
-                                            <td><?php echo $venta->num_documento; ?></td>
+                                            <td><?php echo $venta->num_control; ?></td>
                                             <td><?php echo $venta->fecha; ?></td>
                                             <td><?php echo $venta->total; ?></td>
                                             <td>
-                                                <button type="button" class="btn btn-info btn-view-venta" value="<?php echo $venta->id; ?>" data-toggle="modal" data-target="#modal-default"><span class="fa fa-search"></span></button>
+                                                <a href="javascript:void(0);" class="btn btn-info" onclick="ver_detalle('<?php echo $venta->id; ?>')"><i class="fa fa-search"></i></a>
+                                                <!--<button type="button" class="btn btn-info btn-view-venta222" value="<?php echo $venta->id; ?>"><span class="fa fa-search"></span></button>!-->
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -61,7 +62,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<div class="modal fade" id="modal-default">
+<div class="modal fade" id="modal-default-prueba">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,6 +71,8 @@
                 <h4 class="modal-title">Informacion de la venta</h4>
             </div>
             <div class="modal-body">
+
+                <div id="data-venta"></div>
 
             </div>
             <div class="modal-footer">

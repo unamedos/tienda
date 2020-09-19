@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-08-2020 a las 05:17:22
+-- Tiempo de generación: 19-09-2020 a las 02:07:32
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.3.7
 
@@ -47,7 +47,8 @@ INSERT INTO `categorias` (`id`, `nombre`) VALUES
 (8, 'google'),
 (10, 'Gorras'),
 (13, 'reboot2 '),
-(14, 'hola');
+(14, 'hola'),
+(15, 'chimo chakaro');
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,35 @@ INSERT INTO `clientes` (`id`, `nombre`, `apellido`, `cedula`, `direccion`, `tele
 (4, 'divianaasdasdasdasdass121212', 'febresasdasdasdasdasdsdasd', '20908489', 'trinidad', '04128701580', 'divifebres@gmail.com', '0000-00-00 00:00:00'),
 (5, 'maria', 'medina', '8421826', 'maria@gmail.com', '04128701580', 'mariamalalo@gmail.com', '2020-08-03 22:35:03'),
 (7, 'mia ', 'khalifa', '58990016', 'khalifa calabozo', '02468718194', 'khalifa@gmail.com', '2020-08-06 03:08:10'),
-(8, 'locoa', 'locass', '1411651651465', 'san fernandosdasdasdasda', '4184156416541', 'unamsdasd@gmail.com', '2020-08-06 03:08:18');
+(8, 'locoa', 'locass', '1411651651465', 'san fernandosdasdasdasda', '4184156416541', 'unamsdasd@gmail.com', '2020-08-06 03:08:18'),
+(9, 'Maria', 'Paiva', '27602546', 'lazo marti', '04245313627', 'unamedos@hotmail.com', '2020-09-12 00:09:37');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle_venta`
+--
+
+CREATE TABLE `detalle_venta` (
+  `id` int(11) NOT NULL,
+  `producto_id` int(11) NOT NULL,
+  `venta_id` int(11) NOT NULL,
+  `precio` varchar(11) NOT NULL,
+  `cantidad` varchar(11) NOT NULL,
+  `total` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`id`, `producto_id`, `venta_id`, `precio`, `cantidad`, `total`) VALUES
+(1, 9, 1, '100', '2', '2'),
+(2, 20, 1, '10', '1', '4'),
+(3, 1, 2, '1000', '1', '2'),
+(4, 19, 2, '200', '5', '3'),
+(5, 20, 3, '10', '1', '4'),
+(6, 21, 3, '20000', '2', '6');
 
 -- --------------------------------------------------------
 
@@ -90,7 +119,6 @@ CREATE TABLE `productos` (
   `nombre` varchar(100) NOT NULL,
   `precio_unitario` varchar(100) NOT NULL,
   `cantidad` varchar(100) NOT NULL,
-  `stock` int(100) NOT NULL,
   `precio_venta` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -98,20 +126,21 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `fk_categoria`, `nombre`, `precio_unitario`, `cantidad`, `stock`, `precio_venta`) VALUES
-(1, 1, 'Nike total 90 2020', '1000', '20', 0, ''),
-(4, 6, 'BBB', '60', '4', 0, ''),
-(9, 13, 'predator', '100', '12', 0, ''),
-(13, 7, 'toto', '80', '32', 0, ''),
-(14, 7, 'pipi', '556', '10', 0, ''),
-(15, 4, 'hitatarasadasdsdasdasdasd', '1001', '242', 0, ''),
-(16, 8, 'smart', '100', '35', 0, ''),
-(18, 7, 'nalgas', '200', '100', 0, ''),
-(19, 7, 'nalgas', '200', '10', 0, ''),
-(20, 4, 'cola', '10', '10', 0, ''),
-(21, 3, 'nalgaswqe', '20000', '100', 100, '220'),
-(29, 4, 'naranja', '200', '100', 10, '16000'),
-(30, 4, 'naranja', '100', '10', 10, '15151');
+INSERT INTO `productos` (`id`, `fk_categoria`, `nombre`, `precio_unitario`, `cantidad`, `precio_venta`) VALUES
+(1, 1, 'Nike total 90 2020', '1000', '17', ''),
+(4, 6, 'BBB', '60', '4', ''),
+(9, 13, 'predator', '100', '18', '110'),
+(13, 7, 'toto', '80', '32', ''),
+(14, 7, 'pipi', '556', '10', ''),
+(15, 4, 'hitatarasadasdsdasdasdasd', '1001', '242', ''),
+(16, 8, 'smart', '100', '35', ''),
+(18, 7, 'nalgas', '200', '89', ''),
+(19, 7, 'nalgas', '200', '5', ''),
+(20, 4, 'cola', '10', '4', ''),
+(21, 3, 'nalgaswqe', '20000', '96', '220'),
+(29, 4, 'naranja', '200', '100', '16000'),
+(30, 4, 'naranja', '100', '10', '15151'),
+(31, 15, 'chakaro pequeño', '160000', '12', '220000');
 
 -- --------------------------------------------------------
 
@@ -132,7 +161,7 @@ CREATE TABLE `tipo_comprobante` (
 --
 
 INSERT INTO `tipo_comprobante` (`id`, `nombre`, `cantidad`, `iva`, `serie`) VALUES
-(1, 'Factura', 0, '16', '1'),
+(1, 'Factura', 3, '16', '1'),
 (2, 'Nota de entrega', 0, '0', '1');
 
 -- --------------------------------------------------------
@@ -154,6 +183,15 @@ CREATE TABLE `ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id`, `fecha`, `subtotal`, `iva`, `total`, `tipo_comprobante_id`, `cliente_id`, `num_control`, `serie`) VALUES
+(1, '2020-09-13 03:09:42', '210', '33.6', '243.6', 1, 3, '000001', '1'),
+(2, '2020-09-13 03:09:20', '2000', '320', '2320', 1, 5, '000002', '1'),
+(3, '2020-09-13 03:09:51', '40010', '6401.6', '46411.6', 1, 7, '000003', '1');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -168,6 +206,14 @@ ALTER TABLE `categorias`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `producto_id` (`producto_id`),
+  ADD KEY `venta_id` (`venta_id`);
 
 --
 -- Indices de la tabla `productos`
@@ -198,19 +244,25 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_comprobante`
@@ -222,11 +274,18 @@ ALTER TABLE `tipo_comprobante`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `detalle_venta`
+--
+ALTER TABLE `detalle_venta`
+  ADD CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`venta_id`) REFERENCES `ventas` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `productos`

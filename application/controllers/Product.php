@@ -54,7 +54,7 @@ class Product extends CI_Controller
         $nombre             = $this->input->post('nombre');
         $precio_unitario    = $this->input->post('precio_unitario');
         $cantidad           = $this->input->post('cantidad');
-        $stock              = $this->input->post('stock');
+
         $precio_venta       = $this->input->post('precio_venta');
 
 
@@ -64,7 +64,7 @@ class Product extends CI_Controller
         $this->form_validation->set_rules("nombre", "Nombre", "required|is_unique[productos.nombre]");
         $this->form_validation->set_rules("precio_unitario", "Precio Unitario", "required");
         $this->form_validation->set_rules("cantidad", "Cantidad", "required");
-        $this->form_validation->set_rules("stock", "Stock", "required");
+
         $this->form_validation->set_rules("precio_venta", "Precio Venta", "required");
 
 
@@ -75,7 +75,7 @@ class Product extends CI_Controller
                 'nombre'            => $nombre,
                 'precio_unitario'   => $precio_unitario,
                 'cantidad'          => $cantidad,
-                'stock'             => $stock,
+                
                 'precio_venta'      => $precio_venta
             );
 
@@ -117,7 +117,7 @@ class Product extends CI_Controller
         $nombre             = $this->input->post('nombre');
         $precio_unitario    = $this->input->post('precio_unitario');
         $cantidad           = $this->input->post('cantidad');
-        $stock              = $this->input->post('stock');
+
         $precio_venta       = $this->input->post('precio_venta');
 
         $productoActual = $this->product_ml->get($id);
@@ -134,7 +134,7 @@ class Product extends CI_Controller
         $this->form_validation->set_rules("nombre", "Nombre", "required" . $is_unique);
         $this->form_validation->set_rules("precio_unitario", "Precio Unitario", "required");
         $this->form_validation->set_rules("cantidad", "Cantidad", "required");
-        $this->form_validation->set_rules("stock", "Stock", "required");
+
         $this->form_validation->set_rules("precio_venta", "Precio Venta", "required");
 
         if ($this->form_validation->run()) {
@@ -145,8 +145,9 @@ class Product extends CI_Controller
                 'nombre'            => $nombre,
                 'precio_unitario'   => $precio_unitario,
                 'cantidad'          => $cantidad,
-                'stock'             => $stock,
+
                 'precio_venta'      => $precio_venta
+
             );
 
             $update = $this->product_ml->update($data);

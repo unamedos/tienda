@@ -3,6 +3,8 @@
 <!-- jQuery-ui2 
 <script src="public/plugins/jquery-ui2/jquery-ui.js"></script>-->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- aqui el jquery para validar!-->
+
 
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url(); ?>public/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -21,7 +23,12 @@
 <script>
     $(document).ready(function() {
         $('.sidebar-menu').tree();
-        $('#example1').DataTable()
+        //$('#example1').DataTable()
+        $('#example1').DataTable({
+            "order": [
+                [0, "desc"]
+            ]
+        });
 
     });
 </script>
@@ -40,7 +47,6 @@
                 alert("Campos obligatorios");
             }
         });
-
         $(document).on("click", ".btn-check", function() {
             cliente = $(this).val();
             infocliente = cliente.split("_");
@@ -49,7 +55,6 @@
             $("#Cliente").val(nombres);
             $("#modal-clientes").modal("hide");
         });
-
         $('input#producto').autocomplete({
             source: function(request, response) {
                 var url = "<?php echo base_url(); ?>ventas/getproductos";
@@ -64,13 +69,18 @@
                 data =
                     ui.item.id + "_" + ui.item.label + "_" + ui.item.precio_unitario + "_" + ui.item.cantidad;
                 $("#btn-agregar").val(data);
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("btn-agregar").click();
+                }
+
             },
         });
         $("#btn-agregar").on("click", function() {
             data = $(this).val();
             if (data != '') {
-                infoproducto = data.split("_");
 
+                infoproducto = data.split("_");
                 html = "<tr>";
                 html += "<td><input type ='hidden' name='idproductos[]' value='" + infoproducto[0] + "'>" + infoproducto[1] + "</td>";
                 html += "<td><input type='hidden' name= 'precios[]' value='" + infoproducto[2] + "'>" + infoproducto[2] + "</td>";
@@ -85,6 +95,7 @@
                 alert("seleccione un producto...");
             }
         });
+
         $(document).on("click", ".btn-remove-producto", function() {
             $(this).closest("tr").remove();
             sumar();
@@ -92,8 +103,23 @@
         /*creo la suma para el total */
         $(document).on("keyup", "#tbventas input.cantidades", function() {
             cantidad = $(this).val();
-            precio = $(this).closest("tr").find("td:eq(1)").text();
-            total = cantidad * precio;
+            stock = Number($(this).closest("tr").find("td:eq(2)").text());
+            precio = Number($(this).closest("tr").find("td:eq(1)").text());
+            if (cantidad != '') {
+                if (cantidad == 0) {
+                    alert("El valor ingresado no puede ser menor nulo");
+                    $(this).val('1');
+                    total = precio;
+                } else if (cantidad > stock) {
+                    alert("El valor ingresado no puede ser mayor al stock");
+                    $(this).val(stock);
+                    total = precio * stock;
+                } else {
+                    total = Number(cantidad) * precio;
+                }
+            } else {
+                total = 0;
+            }
             $(this).closest("tr").find("td:eq(4)").children("p").text(total);
             $(this).closest("tr").find("td:eq(4)").children("input").val(total);
             sumar();
@@ -123,7 +149,7 @@
 
     function sumar() {
         subtotal = 0;
-        dataAnterior = [];
+
         $("#tbventas tbody tr").each(function() {
             subtotal = subtotal + Number($(this).find("td:eq(4)").text());
         });
@@ -134,11 +160,24 @@
         total = subtotal + iva;
         $("input[name=total]").val(total);
     }
-
+    /*valido el input de cantidad */
     function soloNumeros(e) {
         var key = window.event ? e.which : e.keyCode;
         if (key < 48 || key > 57) {
             e.preventDefault();
         }
+    }
+
+    function ver_detalle(id) {
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo base_url(); ?>ventas/getDetalle',
+            data: "id=" + id,
+            success: function(data) {
+
+                jQuery("#data-venta").html(data);
+                $('#modal-default-prueba').modal('show');
+            }
+        });
     }
 </script>

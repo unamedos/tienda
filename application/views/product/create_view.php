@@ -65,14 +65,7 @@
                                     <?php echo form_error("cantidad", "<span class='help-block'>", "</span>"); ?>
                                 </div>
                             </div>
-                            <div class="form-group has-warning has-feedback">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" name="stock" value="<?php echo set_value('stock'); ?>" placeholder="Ingrese Stock">
-                                    <?php echo form_error("stock", "<span class='help-block'>", "</span>"); ?>
 
-                                </div>
-                            </div>
                             <div class="form-group has-warning has-feedback">
                                 <label for="inputEmail3" class="col-sm-2 control-label">Precio venta</label>
                                 <div class="col-sm-10">

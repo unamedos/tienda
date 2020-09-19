@@ -32,7 +32,7 @@
 
             function listado()
             {
-                $this->db->select('ca.nombre AS categoria, pr.id, pr.nombre, pr.precio_unitario, pr.cantidad, pr.stock, pr.precio_venta, ROUND(pr.precio_unitario * pr.cantidad, 2) total', FALSE);
+                $this->db->select('ca.nombre AS categoria, pr.id, pr.nombre, pr.precio_unitario, pr.cantidad, pr.precio_venta, ROUND(pr.precio_unitario * pr.cantidad, 2) total', FALSE);
 
                 $this->db->join('categorias ca', 'pr.fk_categoria = ca.id', 'left');
 
@@ -77,7 +77,7 @@
             }
             function get($id)
             {
-                $this->db->select('ca.nombre AS categoria, pr.id, pr.fk_categoria , pr.nombre, pr.precio_unitario, pr.cantidad, pr.stock, pr.precio_venta, ROUND(pr.precio_unitario * pr.cantidad, 2) total', FALSE);
+                $this->db->select('ca.nombre AS categoria, pr.id, pr.fk_categoria , pr.nombre, pr.precio_unitario, pr.cantidad, pr.precio_venta, ROUND(pr.precio_unitario * pr.cantidad, 2) total', FALSE);
 
                 $this->db->join('categorias ca', 'pr.fk_categoria = ca.id', 'left');
 
@@ -109,5 +109,17 @@
                 } else {
                     return false;
                 }
+            }
+            public function getProducto($id)
+            {
+                $this->db->where("id", $id);
+                $resultado = $this->db->get("productos");
+                return $resultado->row();
+            }
+
+            public function update2($id, $data)
+            {
+                $this->db->where("id", $id);
+                return $this->db->update("productos", $data);
             }
         }
