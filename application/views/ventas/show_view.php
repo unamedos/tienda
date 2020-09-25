@@ -43,8 +43,7 @@
                                             <td><?php echo $venta->fecha; ?></td>
                                             <td><?php echo $venta->total; ?></td>
                                             <td>
-                                                <a href="javascript:void(0);" class="btn btn-info" onclick="ver_detalle('<?php echo $venta->id; ?>')"><i class="fa fa-search"></i></a>
-                                                <!--<button type="button" class="btn btn-info btn-view-venta222" value="<?php echo $venta->id; ?>"><span class="fa fa-search"></span></button>!-->
+                                                <button type="button" class="btn btn-info btn-view-venta" value="<?php echo $venta->id; ?>" data-toggle="modal" data-target="#modal-default"><span class="fa fa-search"></span></button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -62,7 +61,7 @@
 </div>
 <!-- /.content-wrapper -->
 
-<div class="modal fade" id="modal-default-prueba">
+<div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -72,7 +71,6 @@
             </div>
             <div class="modal-body">
 
-                <div id="data-venta"></div>
 
             </div>
             <div class="modal-footer">

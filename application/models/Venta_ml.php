@@ -18,9 +18,27 @@ class Venta_ml extends CI_Model
         }
     }
 
+    function getVenta($id)
+    {
+        $this->db->select("v.*,c.nombre,c.direccion,c.telefono, c.cedula,c.telefono,c.direccion,tc.nombre as tipocomprobante");
+        $this->db->from("ventas v");
+        $this->db->join("clientes c", "v.cliente_id = c.id");
+        $this->db->join("tipo_comprobante tc", "v.tipo_comprobante_id = tc.id");
+        $this->db->order_by('v.id', 'DESC');
+        $this->db->where("v.id", $id);
+        $resultado = $this->db->get();
+        return $resultado->row();
+    }
     function getDetalle($id)
     {
-        $sql = $this->db->select("DATE_FORMAT(ve.fecha, '%d-%m-%Y %H:%m:%s') fecha,
+        $this->db->select("dt.*,p.id,p.nombre,ROUND (dt.precio*dt.cantidad,2) AS total");
+        $this->db->from("detalle_venta dt");
+        $this->db->join("productos p", "dt.producto_id = p.id");
+        $this->db->where("dt.venta_id", $id);
+        $resultado = $this->db->get();
+        return $resultado->result();
+    }
+    /* $sql = $this->db->select("DATE_FORMAT(ve.fecha, '%d-%m-%Y %H:%m:%s') fecha,
             pr.nombre AS producto, de.precio, de.cantidad, ROUND(de.precio*de.cantidad, 2) AS total", "FALSE")
             ->join('ventas ve', 'de.venta_id = ve.id', 'inner')
             ->join('productos pr', 'de.producto_id = pr.id', 'inner')
@@ -28,8 +46,8 @@ class Venta_ml extends CI_Model
             ->order_by('pr.nombre', 'ASCs')
             ->get('detalle_venta de');
 
-        return $sql->result_array();
-    }
+        return $sql->result_array();*/
+
 
     function getComprobantes()
     {

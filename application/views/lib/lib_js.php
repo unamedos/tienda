@@ -3,8 +3,8 @@
 <!-- jQuery-ui2 
 <script src="public/plugins/jquery-ui2/jquery-ui.js"></script>-->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- aqui el jquery para validar!-->
-
+<!-- aqui el jquery para imprimir!-->
+<script src="<?php echo base_url(); ?>public/plugins/jquery-print/jquery_print.js"> </script>
 
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url(); ?>public/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -34,6 +34,7 @@
 </script>
 <script>
     $(document).ready(function() {
+        var base_url = "<?php echo base_url(); ?>";
         $("#comprobantes").on("change", function() {
             option = $(this).val();
             if (option != "") {
@@ -168,7 +169,7 @@
         }
     }
 
-    function ver_detalle(id) {
+    /*function ver_detalle(id) {
         $.ajax({
             type: 'POST',
             url: '<?php echo base_url(); ?>ventas/getDetalle',
@@ -179,5 +180,27 @@
                 $('#modal-default-prueba').modal('show');
             }
         });
-    }
+    }*/
+
+    $(document).on("click", ".btn-view-venta", function() {
+        var base_url = "<?php echo base_url(); ?>";
+        valor_id = $(this).val();
+        $.ajax({
+            url: base_url + "ventas/view",
+            type: "POST",
+            dataType: "html",
+            data: {
+                id: valor_id
+            },
+            success: function(data) {
+                $("#modal-default .modal-body").html(data);
+            }
+        });
+
+    });
+    $(document).on("click", ".btn-print", function() {
+        $("#modal-default .modal-body").print({
+            title: "Comprobante de Venta"
+        });
+    });
 </script>

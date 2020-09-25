@@ -129,21 +129,14 @@ class Ventas extends CI_Controller
         $this->product_ml->update2($idproducto, $datapro);
     }
 
-    function getDetalle()
+    public function view()
     {
-        $id = $this->input->post('id');
+        $idventa = $this->input->post("id");
+        $data = array(
+            "venta" => $this->venta_ml->getVenta($idventa),
+            "detalles" => $this->venta_ml->getDetalle($idventa)
+        );
 
-        $data = $this->venta_ml->getDetalle($id);
-
-        if (count($data)) {
-?>
-            
-<?php
-
-        } else {
-            echo json_encode("Sin registros");
-        }
-
-        //echo json_encode($data);
+        $this->load->view("ventas/index_view", $data);
     }
 }
